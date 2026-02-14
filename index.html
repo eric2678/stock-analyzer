@@ -13,12 +13,8 @@
 
 <script>
 async function analyze() {
-    const symbol = document.getElementById("symbol").value;
-    const res = await fetch("http://localhost:8000/analyze?symbol=" + symbol, {
-        method: "POST"
-    });
-    const data = await res.json();
-    document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+  document.getElementById("result").textContent =
+    "Frontend deployed ✅\nBackend API is not deployed yet.\nRun backend locally or deploy it to HTTPS (Render/Fly) next.";
 }
 </script>
 
