@@ -1,22 +1,754 @@
-
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Stock Analyzer</title>
-</head>
-<body>
-    <h2>Stock Analyzer</h2>
-    <input id="symbol" placeholder="2330 or AAPL" />
-    <button onclick="analyze()">Analyze</button>
-    <pre id="result"></pre>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Analyzer</title>
+
+    <style>
+        :root {
+            --bg: #f6f8fc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --primary: #2563eb;
+            --primary2: #3b82f6;
+            --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+            --shadow2: 0 8px 18px rgba(15, 23, 42, 0.06);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: radial-gradient(1200px 600px at 20% 0%, #eaf2ff 0%, transparent 60%),
+                radial-gradient(1000px 500px at 90% 10%, #fef3c7 0%, transparent 55%),
+                var(--bg);
+            color: var(--text);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 22px 18px 60px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow2);
+            position: sticky;
+            top: 12px;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), #22c55e);
+            display: grid;
+            place-items: center;
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .brand-title {
+            font-weight: 700;
+        }
+
+        .brand-sub {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 6px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: white;
+        }
+
+        .nav a {
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            color: var(--muted);
+        }
+
+        .nav a.active {
+            background: #eef2ff;
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .nav a:hover {
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        .hero {
+            margin: 26px 0 18px;
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        @media (max-width: 860px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card:before {
+            content: "";
+            position: absolute;
+            inset: -40px -40px auto auto;
+            width: 220px;
+            height: 220px;
+            border-radius: 60px;
+            background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.35), transparent 55%);
+            transform: rotate(20deg);
+        }
+
+        .h-title {
+            font-size: 30px;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .h-desc {
+            margin: 10px 0 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .kpis {
+            display: grid;
+            gap: 10px;
+        }
+
+        .kpi {
+            background: linear-gradient(180deg, #ffffff, #fbfdff);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 14px 14px;
+            box-shadow: var(--shadow2);
+        }
+
+        .kpi b {
+            display: block;
+            font-size: 14px;
+        }
+
+        .kpi span {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .section {
+            margin-top: 14px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .input {
+            flex: 1;
+            min-width: 220px;
+            padding: 14px 14px;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            outline: none;
+            font-size: 16px;
+            background: #fbfdff;
+        }
+
+        .input:focus {
+            border-color: rgba(37, 99, 235, 0.5);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        .btn {
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(37, 99, 235, 0.25);
+            background: linear-gradient(135deg, var(--primary), var(--primary2));
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.06s ease, filter 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            filter: grayscale(0.2);
+        }
+
+        .btn .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12);
+        }
+
+        .chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .chip {
+            border: 1px solid var(--line);
+            background: #f8fafc;
+            color: #334155;
+            padding: 7px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .chip:hover {
+            background: #eef2ff;
+            border-color: #c7d2fe;
+            color: #1d4ed8;
+        }
+
+        .notice {
+            margin-top: 12px;
+            padding: 12px 12px;
+            border-radius: 14px;
+            border: 1px dashed #cbd5e1;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .pill.buy {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .pill.sell {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .pill.watch {
+            background: #fef9c3;
+            color: #a16207;
+            border: 1px solid #fde68a;
+        }
+
+        .pill .spark {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: currentColor;
+            opacity: 0.9;
+        }
+
+        .progress {
+            width: 240px;
+            max-width: 100%;
+        }
+
+        .progress .bar {
+            height: 10px;
+            background: #eef2ff;
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .progress .bar>div {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #22c55e, #3b82f6);
+            border-radius: 999px;
+            transition: width 0.5s ease;
+        }
+
+        .progress .meta {
+            margin-top: 6px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .grid {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        @media (max-width: 860px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .metric {
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, #ffffff, #fbfdff);
+            border-radius: 14px;
+            padding: 14px;
+            box-shadow: var(--shadow2);
+        }
+
+        .metric .k {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .metric .v {
+            font-size: 20px;
+            font-weight: 800;
+            margin-top: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .columns {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        @media (max-width: 860px) {
+            .columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px;
+            background: white;
+        }
+
+        .panel h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .list {
+            margin: 0;
+            padding-left: 18px;
+            color: #334155;
+        }
+
+        .list li {
+            margin: 6px 0;
+            line-height: 1.45;
+        }
+
+        .flags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .flag {
+            font-size: 12px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            color: #334155;
+        }
+
+        .flag.warn {
+            border-color: #fde68a;
+            background: #fffbeb;
+            color: #92400e;
+        }
+
+        .flag.risk {
+            border-color: #fecaca;
+            background: #fff1f2;
+            color: #9f1239;
+        }
+
+        .small-muted {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 10px;
+        }
+
+        .toast {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid #fecaca;
+            background: #fff1f2;
+            color: #9f1239;
+            font-size: 13px;
+            display: none;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <div class="brand">
+                <div class="logo">SA</div>
+                <div>
+                    <div class="brand-title">Stock Analyzer</div>
+                    <div class="brand-sub">TW + US · MA20/MA60/RSI · Free data (Yahoo)</div>
+                </div>
+            </div>
+
+            <div class="nav">
+                <a class="active" href="#">Analyzer</a>
+                <a href="#" onclick="return false;">Signals</a>
+                <a href="#" onclick="return false;">Backtest</a>
+            </div>
+        </div>
+
+        <div class="hero">
+            <div class="hero-card">
+                <h1 class="h-title">Technical signal in one click.</h1>
+                <p class="h-desc">
+                    Enter a stock symbol (TW: 2330 / 2330.TW, US: AAPL / NVDA).
+                    We compute MA20 / MA60 / RSI and generate a simple BUY / SELL / WATCH signal with reasons.
+                </p>
+                <div class="notice">
+                    <b>Note:</b> GitHub Pages is HTTPS. If your backend is local HTTP, the browser may block the
+                    request.
+                    For “real” usage on Pages, deploy the backend to an HTTPS host (Render/Fly), then set
+                    <code>window.API_BASE</code>.
+                </div>
+            </div>
+
+            <div class="kpis">
+                <div class="kpi">
+                    <b>Markets</b>
+                    <span>TW (2330.TW) · US (AAPL)</span>
+                </div>
+                <div class="kpi">
+                    <b>Indicators</b>
+                    <span>MA20 · MA60 · RSI14</span>
+                </div>
+                <div class="kpi">
+                    <b>Output</b>
+                    <span>Signal + confidence + reasons</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="row">
+                <div style="flex:1;">
+                    <div class="label">Symbol</div>
+                    <input id="symbol" class="input" placeholder="Example: 2330 / 2330.TW / AAPL / NVDA" />
+                    <div class="chips">
+                        <div class="chip" onclick="fill('2330')">2330 (TSMC)</div>
+                        <div class="chip" onclick="fill('0050')">0050 (TW ETF)</div>
+                        <div class="chip" onclick="fill('AAPL')">AAPL</div>
+                        <div class="chip" onclick="fill('NVDA')">NVDA</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <div class="label">Action</div>
+                    <button id="btn" class="btn" onclick="analyze()">
+                        <span class="dot" id="dot"></span>
+                        <span id="btnText">Analyze</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="toast" class="toast"></div>
+        </div>
+
+        <div id="result" class="section hidden">
+            <div class="result-top">
+                <div>
+                    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                        <div id="pill" class="pill watch"><span class="spark"></span> WATCH</div>
+                        <div style="color:var(--muted); font-size:13px;">
+                            <span id="metaSymbol"></span>
+                            <span id="metaSource"></span>
+                        </div>
+                    </div>
+                    <div class="small-muted" id="scoreLine"></div>
+                </div>
+
+                <div class="progress">
+                    <div class="bar">
+                        <div id="barFill"></div>
+                    </div>
+                    <div class="meta">
+                        <span>Confidence</span>
+                        <span id="confText">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="metric">
+                    <div class="k">Price</div>
+                    <div class="v" id="mPrice">—</div>
+                </div>
+                <div class="metric">
+                    <div class="k">MA20</div>
+                    <div class="v" id="mMA20">—</div>
+                </div>
+                <div class="metric">
+                    <div class="k">MA60</div>
+                    <div class="v" id="mMA60">—</div>
+                </div>
+                <div class="metric">
+                    <div class="k">RSI</div>
+                    <div class="v" id="mRSI">—</div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="panel">
+                    <h3>Reasons</h3>
+                    <ol class="list" id="reasonsList"></ol>
+                </div>
+                <div class="panel">
+                    <h3>Risk Flags</h3>
+                    <div class="flags" id="flags"></div>
+                    <div class="small-muted" id="helpText">
+                        Educational use only. Not financial advice.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © <span id="year"></span> Stock Analyzer · Built for practice & personal use
+        </div>
+
+    </div>
+
+    <!-- Optional: override API base in production
 <script>
-async function analyze() {
-  document.getElementById("result").textContent =
-    "Frontend deployed ✅\nBackend API is not deployed yet.\nRun backend locally or deploy it to HTTPS (Render/Fly) next.";
-}
+  window.API_BASE = "https://your-backend.onrender.com";
 </script>
+-->
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        const CONFIG = {
+            API_BASE: window.API_BASE || "http://localhost:8000"
+        };
+
+        function fill(sym) {
+            document.getElementById("symbol").value = sym;
+            document.getElementById("symbol").focus();
+        }
+
+        function setLoading(isLoading) {
+            const btn = document.getElementById("btn");
+            const txt = document.getElementById("btnText");
+            const dot = document.getElementById("dot");
+            btn.disabled = isLoading;
+            txt.textContent = isLoading ? "Analyzing..." : "Analyze";
+            dot.style.opacity = isLoading ? "0.6" : "1";
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById("toast");
+            t.textContent = msg;
+            t.classList.add("show");
+            setTimeout(() => t.classList.remove("show"), 4200);
+        }
+
+        function setPill(signal) {
+            const pill = document.getElementById("pill");
+            const s = String(signal || "WATCH").toUpperCase();
+            pill.className = "pill " + s.toLowerCase();
+            pill.innerHTML = `<span class="spark"></span> ${s}`;
+        }
+
+        function fmt(n) {
+            if (typeof n !== "number" || Number.isNaN(n)) return "—";
+            return (Math.round(n * 100) / 100).toFixed(2);
+        }
+
+        async function analyze() {
+            const symbol = document.getElementById("symbol").value.trim();
+            if (!symbol) return;
+
+            setLoading(true);
+
+            try {
+                const res = await fetch(`${CONFIG.API_BASE}/analyze?symbol=${encodeURIComponent(symbol)}`, {
+                    method: "POST"
+                });
+
+                if (!res.ok) {
+                    const text = await res.text();
+                    throw new Error(text || `HTTP ${res.status}`);
+                }
+
+                const data = await res.json();
+
+                document.getElementById("result").classList.remove("hidden");
+                setPill(data.signal);
+
+                const conf = Number(data.confidence ?? 0);
+                document.getElementById("confText").textContent = `${conf}%`;
+                document.getElementById("barFill").style.width = `${Math.max(0, Math.min(100, conf))}%`;
+
+                document.getElementById("metaSymbol").textContent = `Symbol: ${data.symbol || symbol}`;
+                document.getElementById("metaSource").textContent = data.data_source ? ` · ${data.data_source}` : "";
+                document.getElementById("scoreLine").textContent = `Score: ${data.score} · Signal: ${data.signal}`;
+
+                document.getElementById("mPrice").textContent = fmt(data.close);
+                document.getElementById("mMA20").textContent = fmt(data.ma20);
+                document.getElementById("mMA60").textContent = fmt(data.ma60);
+                document.getElementById("mRSI").textContent = fmt(data.rsi);
+
+                const reasonsList = document.getElementById("reasonsList");
+                reasonsList.innerHTML = "";
+                (data.why || []).slice(0, 6).forEach(r => {
+                    const li = document.createElement("li");
+                    li.textContent = r;
+                    reasonsList.appendChild(li);
+                });
+
+                const flags = document.getElementById("flags");
+                flags.innerHTML = "";
+                const rf = (data.risk_flags || []).slice(0, 6);
+                if (rf.length === 0) {
+                    const span = document.createElement("span");
+                    span.className = "flag";
+                    span.textContent = "No obvious risk flags";
+                    flags.appendChild(span);
+                } else {
+                    rf.forEach(x => {
+                        const span = document.createElement("span");
+                        span.className = "flag warn";
+                        span.textContent = x;
+                        flags.appendChild(span);
+                    });
+                }
+
+            } catch (err) {
+                showToast(
+                    "Cannot reach backend API. If using GitHub Pages (HTTPS), a local HTTP backend may be blocked. " +
+                    "Deploy backend to HTTPS (Render/Fly) or run frontend locally."
+                );
+            } finally {
+                setLoading(false);
+            }
+        }
+    </script>
 
 </body>
+
 </html>
