@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Analyzer</title>
+</head>
+<body>
+    <h2>Stock Analyzer</h2>
+    <input id="symbol" placeholder="2330 or AAPL" />
+    <button onclick="analyze()">Analyze</button>
+    <pre id="result"></pre>
+
+<script>
+async function analyze() {
+    const symbol = document.getElementById("symbol").value;
+    const res = await fetch("http://localhost:8000/analyze?symbol=" + symbol, {
+        method: "POST"
+    });
+    const data = await res.json();
+    document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
