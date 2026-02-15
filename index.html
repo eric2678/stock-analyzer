@@ -144,17 +144,25 @@
                             </div>
 
                             <div class="charts">
-                                <div class="sub-title">價格 / 均線 / 布林通道</div>
-                                <div class="chart-wrapper">
-                                    <canvas id="priceChart"></canvas>
+                                <div class="chartBox">
+                                    <div class="chartWrap">
+                                        <canvas id="priceChart"></canvas>
+                                    </div>
                                 </div>
 
-                                <div class="sub-title" style="margin-top:14px;">MACD</div>
-                                <canvas id="macdChart" height="95"></canvas>
+                                <div class="chartBox">
+                                    <div class="chartWrap small">
+                                        <canvas id="macdChart"></canvas>
+                                    </div>
+                                </div>
 
-                                <div class="sub-title" style="margin-top:14px;">RSI</div>
-                                <canvas id="rsiChart" height="85"></canvas>
+                                <div class="chartBox">
+                                    <div class="chartWrap tiny">
+                                        <canvas id="rsiChart"></canvas>
+                                    </div>
+                                </div>
                             </div>
+
 
                             <div class="result-actions">
                                 <button id="copyBtn" class="btn ghost">複製結果</button>
