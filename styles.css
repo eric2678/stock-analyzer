@@ -7,347 +7,586 @@
    ========================================================= */
 
 /* -------- Base Reset -------- */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+* {
+    box-sizing: border-box;
+}
+
+html,
 body {
-  margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Noto Sans TC",
-               "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
-  color: #0f172a;
-  background: linear-gradient(180deg, #f6f9ff 0%, #ffffff 55%, #f7fbff 100%);
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Noto Sans TC",
+        "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+    color: #0f172a;
+    background: linear-gradient(180deg, #f6f9ff 0%, #ffffff 55%, #f7fbff 100%);
 }
 
 /* Prevent any accidental gigantic elements from breaking scroll */
-img, svg, canvas { max-width: 100%; }
-a { color: inherit; text-decoration: none; }
+img,
+svg,
+canvas {
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
 /* -------- Layout -------- */
 .container {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 18px 16px 28px;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 18px 16px 28px;
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  background: rgba(255,255,255,.85);
-  border: 1px solid rgba(15, 23, 42, .08);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
-  backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .85);
+    border: 1px solid rgba(15, 23, 42, .08);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+    backdrop-filter: blur(8px);
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
+
 .logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: radial-gradient(circle at 30% 25%, #4f8cff 0%, #2563eb 35%, #0ea5e9 100%);
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  letter-spacing: .5px;
-  box-shadow: 0 10px 24px rgba(37, 99, 235, .25);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: radial-gradient(circle at 30% 25%, #4f8cff 0%, #2563eb 35%, #0ea5e9 100%);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    letter-spacing: .5px;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, .25);
 }
+
 .brand h1 {
-  margin: 0;
-  font-size: 18px;
-  line-height: 1.1;
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.1;
 }
+
 .brand .sub {
-  margin: 2px 0 0;
-  font-size: 12px;
-  color: rgba(15, 23, 42, .62);
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: rgba(15, 23, 42, .62);
 }
 
 .tabs {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
+
 .tab {
-  font-size: 13px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(15,23,42,.10);
-  background: rgba(255,255,255,.75);
-  cursor: pointer;
-  transition: .15s ease;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, .10);
+    background: rgba(255, 255, 255, .75);
+    cursor: pointer;
+    transition: .15s ease;
 }
-.tab:hover { transform: translateY(-1px); }
+
+.tab:hover {
+    transform: translateY(-1px);
+}
+
 .tab.active {
-  border-color: rgba(37,99,235,.35);
-  background: rgba(37,99,235,.10);
-  color: #1d4ed8;
+    border-color: rgba(37, 99, 235, .35);
+    background: rgba(37, 99, 235, .10);
+    color: #1d4ed8;
 }
 
 /* -------- Cards / Panels -------- */
 .grid {
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: 1.4fr 0.8fr;
-  gap: 14px;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 14px;
 }
+
 @media (max-width: 920px) {
-  .grid { grid-template-columns: 1fr; }
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .card {
-  border-radius: 18px;
-  background: rgba(255,255,255,.92);
-  border: 1px solid rgba(15,23,42,.08);
-  box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
-  padding: 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .92);
+    border: 1px solid rgba(15, 23, 42, .08);
+    box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
+    padding: 16px;
 }
 
-.card h2, .card h3 {
-  margin: 0 0 10px;
-  font-size: 16px;
+.card h2,
+.card h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
 }
-.muted { color: rgba(15,23,42,.62); font-size: 13px; }
+
+.muted {
+    color: rgba(15, 23, 42, .62);
+    font-size: 13px;
+}
 
 /* -------- Form -------- */
 .formRow {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 10px;
-  align-items: end;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    align-items: end;
 }
+
 @media (max-width: 720px) {
-  .formRow { grid-template-columns: 1fr; }
+    .formRow {
+        grid-template-columns: 1fr;
+    }
 }
 
 .label {
-  font-size: 13px;
-  color: rgba(15,23,42,.70);
-  margin-bottom: 6px;
-  display: block;
+    font-size: 13px;
+    color: rgba(15, 23, 42, .70);
+    margin-bottom: 6px;
+    display: block;
 }
 
 .input {
-  width: 100%;
-  padding: 12px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(15,23,42,.14);
-  background: #fff;
-  font-size: 14px;
-  outline: none;
-  transition: .15s ease;
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(15, 23, 42, .14);
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: .15s ease;
 }
+
 .input:focus {
-  border-color: rgba(37,99,235,.6);
-  box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+    border-color: rgba(37, 99, 235, .6);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
 }
 
 .helper {
-  margin-top: 6px;
-  font-size: 12px;
-  color: rgba(15,23,42,.55);
+    margin-top: 6px;
+    font-size: 12px;
+    color: rgba(15, 23, 42, .55);
 }
 
 .btn {
-  border: 0;
-  border-radius: 14px;
-  padding: 12px 14px;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: .15s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-  user-select: none;
+    border: 0;
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    user-select: none;
 }
-.btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+.btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 .btn-primary {
-  color: #fff;
-  background: linear-gradient(135deg, #2563eb, #0ea5e9);
-  box-shadow: 0 12px 26px rgba(37,99,235,.25);
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #0ea5e9);
+    box-shadow: 0 12px 26px rgba(37, 99, 235, .25);
 }
-.btn-primary:hover { transform: translateY(-1px); }
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+}
+
 .btn-ghost {
-  color: #0f172a;
-  background: rgba(15,23,42,.03);
-  border: 1px solid rgba(15,23,42,.12);
+    color: #0f172a;
+    background: rgba(15, 23, 42, .03);
+    border: 1px solid rgba(15, 23, 42, .12);
 }
-.btn-ghost:hover { transform: translateY(-1px); background: rgba(15,23,42,.04); }
+
+.btn-ghost:hover {
+    transform: translateY(-1px);
+    background: rgba(15, 23, 42, .04);
+}
 
 /* -------- Pills / Badges -------- */
 .pillRow {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
+
 .pill {
-  border-radius: 999px;
-  padding: 7px 10px;
-  font-size: 12px;
-  border: 1px solid rgba(15,23,42,.10);
-  background: rgba(255,255,255,.75);
-  cursor: pointer;
-  transition: .15s ease;
+    border-radius: 999px;
+    padding: 7px 10px;
+    font-size: 12px;
+    border: 1px solid rgba(15, 23, 42, .10);
+    background: rgba(255, 255, 255, .75);
+    cursor: pointer;
+    transition: .15s ease;
 }
-.pill:hover { transform: translateY(-1px); }
-.pill .spark { margin-right: 6px; opacity: .65; }
-.pill.buy  { background: rgba(34,197,94,.12);  border-color: rgba(34,197,94,.25);  color: #166534; }
-.pill.sell { background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.25); color: #991b1b; }
-.pill.watch{ background: rgba(59,130,246,.10); border-color: rgba(59,130,246,.25); color: #1d4ed8; }
+
+.pill:hover {
+    transform: translateY(-1px);
+}
+
+.pill .spark {
+    margin-right: 6px;
+    opacity: .65;
+}
+
+.pill.buy {
+    background: rgba(34, 197, 94, .12);
+    border-color: rgba(34, 197, 94, .25);
+    color: #166534;
+}
+
+.pill.sell {
+    background: rgba(239, 68, 68, .10);
+    border-color: rgba(239, 68, 68, .25);
+    color: #991b1b;
+}
+
+.pill.watch {
+    background: rgba(59, 130, 246, .10);
+    border-color: rgba(59, 130, 246, .25);
+    color: #1d4ed8;
+}
 
 /* -------- Output / Lists -------- */
 .kv {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 8px 12px;
-  align-items: baseline;
-  font-size: 14px;
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 8px 12px;
+    align-items: baseline;
+    font-size: 14px;
 }
-.kv .k { color: rgba(15,23,42,.60); }
-.kv .v { font-weight: 700; }
+
+.kv .k {
+    color: rgba(15, 23, 42, .60);
+}
+
+.kv .v {
+    font-weight: 700;
+}
 
 .ul {
-  margin: 10px 0 0;
-  padding-left: 18px;
+    margin: 10px 0 0;
+    padding-left: 18px;
 }
-.ul li { margin: 6px 0; color: rgba(15,23,42,.86); }
+
+.ul li {
+    margin: 6px 0;
+    color: rgba(15, 23, 42, .86);
+}
 
 .hr {
-  height: 1px;
-  background: rgba(15,23,42,.08);
-  margin: 14px 0;
+    height: 1px;
+    background: rgba(15, 23, 42, .08);
+    margin: 14px 0;
 }
 
 /* -------- Error box -------- */
 .alert {
-  border-radius: 14px;
-  border: 1px solid rgba(239,68,68,.25);
-  background: rgba(239,68,68,.08);
-  padding: 12px 12px;
-  color: #991b1b;
-  font-size: 13px;
-  line-height: 1.5;
+    border-radius: 14px;
+    border: 1px solid rgba(239, 68, 68, .25);
+    background: rgba(239, 68, 68, .08);
+    padding: 12px 12px;
+    color: #991b1b;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 /* -------- Right panel -------- */
 .sideSection h3 {
-  margin: 0 0 10px;
-  font-size: 15px;
+    margin: 0 0 10px;
+    font-size: 15px;
 }
+
 .sideRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 8px 0;
 }
+
 .sideRow .clear {
-  color: #ef4444;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 12px;
+    color: #ef4444;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 12px;
 }
-.sideRow .clear:hover { text-decoration: underline; }
+
+.sideRow .clear:hover {
+    text-decoration: underline;
+}
 
 .chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid rgba(15,23,42,.10);
-  background: rgba(15,23,42,.03);
-  border-radius: 999px;
-  padding: 7px 10px;
-  font-size: 13px;
-  margin: 6px 6px 0 0;
-  cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(15, 23, 42, .10);
+    background: rgba(15, 23, 42, .03);
+    border-radius: 999px;
+    padding: 7px 10px;
+    font-size: 13px;
+    margin: 6px 6px 0 0;
+    cursor: pointer;
 }
-.chip:hover { background: rgba(15,23,42,.04); }
-.chip .mini { font-size: 12px; color: rgba(15,23,42,.55); }
+
+.chip:hover {
+    background: rgba(15, 23, 42, .04);
+}
+
+.chip .mini {
+    font-size: 12px;
+    color: rgba(15, 23, 42, .55);
+}
 
 /* -------- Charts (CRITICAL FIX) -------- */
 /* Important: Chart.js with maintainAspectRatio:false requires a wrapper with fixed height */
 .charts {
-  margin-top: 12px;
-  display: grid;
-  gap: 12px;
+    margin-top: 12px;
+    display: grid;
+    gap: 12px;
 }
 
 /* Each chart area has a fixed height to prevent the infinite-height bug */
 .chartBox {
-  border-radius: 16px;
-  border: 1px solid rgba(15,23,42,.08);
-  background: rgba(255,255,255,.80);
-  padding: 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(15, 23, 42, .08);
+    background: rgba(255, 255, 255, .80);
+    padding: 12px;
 }
 
 /* wrapper gives chart a stable height */
 .chartWrap {
-  position: relative;
-  width: 100%;
-  height: 320px;           /* price chart default height */
+    position: relative;
+    width: 100%;
+    height: 320px;
+    /* price chart default height */
 }
 
 /* smaller charts */
 .chartWrap.small {
-  height: 170px;           /* MACD */
+    height: 170px;
+    /* MACD */
 }
+
 .chartWrap.tiny {
-  height: 130px;           /* RSI */
+    height: 130px;
+    /* RSI */
 }
 
 /* Make canvas fill the wrapper. DO NOT set padding on canvas. */
 .chartWrap canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  max-height: 100% !important;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
 }
 
 /* Safety net: never allow absurd canvas size */
 canvas {
-  max-height: 520px !important;
+    max-height: 520px !important;
 }
 
 /* -------- Footer -------- */
 .footer {
-  margin-top: 18px;
-  padding: 12px 4px;
-  text-align: center;
-  font-size: 12px;
-  color: rgba(15,23,42,.55);
+    margin-top: 18px;
+    padding: 12px 4px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(15, 23, 42, .55);
 }
 
 /* -------- Toast -------- */
 .toast {
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  background: rgba(15,23,42,.92);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  opacity: 0;
-  pointer-events: none;
-  transition: .18s ease;
-  box-shadow: 0 14px 28px rgba(15,23,42,.25);
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, .92);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .18s ease;
+    box-shadow: 0 14px 28px rgba(15, 23, 42, .25);
 }
-.toast.show { opacity: 1; }
+
+.toast.show {
+    opacity: 1;
+}
 
 /* -------- Utilities -------- */
 .row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
-.spacer { height: 8px; }
+
+.spacer {
+    height: 8px;
+}
+
+/* =========================================================
+   Mobile / Small screens
+   ========================================================= */
+
+@media (max-width: 920px) {
+    .container {
+        padding: 14px 12px 22px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .brand {
+        justify-content: flex-start;
+    }
+
+    .tabs {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .formRow {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    /* Buttons become easier to tap */
+    .btn {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 14px;
+    }
+
+    /* Pills wrap nicely */
+    .pillRow {
+        gap: 6px;
+    }
+
+    .pill {
+        padding: 8px 10px;
+    }
+
+    /* Key-value layout */
+    .kv {
+        grid-template-columns: 96px 1fr;
+    }
+
+    /* Charts: reduce heights for mobile */
+    .chartWrap {
+        height: 260px;
+    }
+
+    /* price */
+    .chartWrap.small {
+        height: 150px;
+    }
+
+    /* MACD */
+    .chartWrap.tiny {
+        height: 120px;
+    }
+
+    /* RSI */
+
+    /* Keep chart cards tight */
+    .chartBox {
+        padding: 10px;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 420px) {
+    .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+    }
+
+    .brand h1 {
+        font-size: 16px;
+    }
+
+    .brand .sub {
+        font-size: 12px;
+    }
+
+    .input {
+        padding: 11px 12px;
+    }
+
+    .tab {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+
+    .kv {
+        grid-template-columns: 84px 1fr;
+        font-size: 13px;
+    }
+
+    .muted,
+    .helper {
+        font-size: 12px;
+    }
+
+    .chartWrap {
+        height: 240px;
+    }
+
+    .chartWrap.small {
+        height: 140px;
+    }
+
+    .chartWrap.tiny {
+        height: 115px;
+    }
+
+    .footer {
+        font-size: 11px;
+    }
+}
