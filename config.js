@@ -1,0 +1,1 @@
+window.API_BASE = "https://stock-analyzer-backend-rd1p.onrender.com";
